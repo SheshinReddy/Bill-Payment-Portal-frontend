@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import MainContentHeader from "./MainContentHeader";
-import HomePageMainBody from "./HomePageMainBody";
+import HomePageMainBody2 from "./HomePageMainBody2";
 
 function HomePageMainContent() {
     return (
@@ -12,7 +12,7 @@ function HomePageMainContent() {
         >
             {/* for header */}
             <MainContentHeader title="Pay Bills" />
-            <HomePageMainBody/>
+            <HomePageMainBody2/>
         </Stack>
     )
 }
