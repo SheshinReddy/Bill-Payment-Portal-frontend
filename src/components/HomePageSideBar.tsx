@@ -2,6 +2,7 @@ import { Box, Stack, useTheme } from "@mui/material";
 import SideBarComponent from "./SideBarComponent";
 import LogInSideBar from "./LogInSideBar";
 import { useState } from "react";
+import { sideBarCategories } from "../data/globalData";
 
 function HomePageSideBar() {
     const theme = useTheme();
@@ -11,25 +12,6 @@ function HomePageSideBar() {
     const handleClick = () => {
         setIsActive(!isActive);
     }
-
-    const sideBarCategories = [
-        {
-            icon: "src/assets/navigation-icons/pay-bills.svg",
-            text: "Pay Bills",
-        },
-        {
-            icon: "src/assets/navigation-icons/transactions.svg",
-            text: "Transactions",
-        },
-        {
-            icon: "src/assets/navigation-icons/complaints.svg",
-            text: "Complaints",
-        },
-        {
-            icon: "src/assets/navigation-icons/saved-bills.svg",
-            text: "Saved Bills",
-        },
-    ];
 
     return (
         <Stack
@@ -42,6 +24,7 @@ function HomePageSideBar() {
                 backgroundColor: theme.palette.primary.main,
                 overflowY: "auto",
                 justifyContent: "space-between",
+                display: { xs: "none", md: "block" }
             }}
         >
             <Stack
@@ -77,10 +60,10 @@ function HomePageSideBar() {
                         spacing="12px"
                     >
                         {sideBarCategories.map((category) => (
-                            <SideBarComponent 
-                                className={category.text === "Pay Bills" ? "active" : ""} 
-                                icon={category.icon} 
-                                text={category.text} 
+                            <SideBarComponent
+                                className={category.text === "Pay Bills" ? "active" : ""}
+                                icon={category.icon}
+                                text={category.text}
                                 onClick={handleClick}
                             />
                         ))}

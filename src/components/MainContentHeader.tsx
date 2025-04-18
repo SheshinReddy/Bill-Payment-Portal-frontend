@@ -64,7 +64,12 @@ function MainContentHeader({ title }: MainContentHeaderProps) {
                     type="search"
                     placeholder="Search for a Bill category"
                     sx={{
-                        width: "500px",
+                        minWidth: {
+                            xs: "280px",
+                            md: "350px",
+                            lg: "450px",
+                            xl: "500px"
+                        },
                         marginTop: "32px"
                     }}
                     InputProps={{

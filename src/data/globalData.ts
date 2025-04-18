@@ -1,36 +1,4 @@
-type sideBatcategoryNameType = {
-    name: string;
-    iconSource: string;
-    isActive: boolean;
-    isHovered: boolean;
-}
 
-export const sideBarCategories: sideBatcategoryNameType[] = [
-    {
-        name: "Pay Bills",
-        iconSource: "",
-        isActive: false,
-        isHovered: false,
-    },
-    {
-        name: "Transactions",
-        iconSource: "",
-        isActive: false,
-        isHovered: false,
-    },
-    {
-        name: "Complaints",
-        iconSource: "",
-        isActive: false,
-        isHovered: false,
-    },
-    {
-        name: "Saved Bills",
-        iconSource: "",
-        isActive: false,
-        isHovered: false,
-    },
-];
 
 export type ServiceItemType = {
     name: string;
@@ -88,5 +56,29 @@ export const services: ServicesType = [
             { name: "Donation", iconSource: "src/assets/service-icons/donation.svg" }
         ]
     }
+];
+
+type navBarCategoryType = {
+    icon: string;
+    text: string;
+}
+
+export const sideBarCategories: navBarCategoryType[] = [
+    {
+        icon: "src/assets/navigation-icons/pay-bills.svg",
+        text: "Pay Bills",
+    },
+    {
+        icon: "src/assets/navigation-icons/transactions.svg",
+        text: "Transactions",
+    },
+    {
+        icon: "src/assets/navigation-icons/complaints.svg",
+        text: "Complaints",
+    },
+    {
+        icon: "src/assets/navigation-icons/saved-bills.svg",
+        text: "Saved Bills",
+    },
 ];
 
