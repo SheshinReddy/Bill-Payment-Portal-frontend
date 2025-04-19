@@ -20,6 +20,9 @@ function SideBarComponent({ icon, text, className, onClick }: SideBarProps) {
                 padding: "12px 16px",
                 alignItems: "center",
                 justifyContent: "flex-start",
+                "&:hover": {
+                    cursor: "pointer",
+                }
             }}
         >
             <Box>

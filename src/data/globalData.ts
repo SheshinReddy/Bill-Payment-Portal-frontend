@@ -1,8 +1,22 @@
+export type billerFormFieldType = {
+    name: string;
+    placeholder: string;
+}
 
+export type billerFormType = {
+    fields: billerFormFieldType[];
+}
+
+export type billerType = {
+    name: string;
+    iconSource: string;
+    form: billerFormType;
+}
 
 export type ServiceItemType = {
     name: string;
     iconSource: string;
+    billers?: billerType[];
 };
 
 export type ServiceCategoryType = {
@@ -16,7 +30,13 @@ export const services: ServicesType = [
     {
         categoryName: "Utilities",
         items: [
-            { name: "Electricity", iconSource: "src/assets/service-icons/electricity.svg" },
+            {
+                name: "Electricity",
+                iconSource: "src/assets/service-icons/electricity.svg",
+                billers: [
+                    
+                ]
+            },
             { name: "Broadband Postpaid", iconSource: "src/assets/service-icons/broadband-postpaid.svg" },
             { name: "Mobile Postpaid", iconSource: "src/assets/service-icons/mobile-postpaid.svg" },
             { name: "Landline Postpaid", iconSource: "src/assets/service-icons/landline-postpaid.svg" },

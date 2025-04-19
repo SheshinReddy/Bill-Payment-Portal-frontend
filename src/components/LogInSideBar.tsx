@@ -10,6 +10,12 @@ function LogInSideBar() {
                 alignItems: "center",
                 padding: "12px 16px",
                 marginBottom: "38px",
+                "&:hover": {
+                    backgroundColor: "#40455A",
+                    cursor: "pointer",
+                    borderRadius: "8px",
+                    transition: "all 0.3s ease"
+                }
             }}
         >
             <Box>
