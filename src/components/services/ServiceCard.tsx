@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { ServiceItemType } from "../data/globalData";
+import { ServiceItemType } from "../../data/globalData";
 
 type ServiceCardProps = {
     item: ServiceItemType;

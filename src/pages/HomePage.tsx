@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import HomePageSideBar from "../components/HomePageSideBar";
-import HomePgeMainContent from "../components/HomePageMainContent";
-import MobileNavbar from "../components/MobileNavBar";
+import HomePageSideBar from "../components/layout/HomePageSideBar";
+import HomePgeMainContent from "../components/services/HomePageMainContent";
+import MobileNavbar from "../components/layout/MobileNavBar";
 
 function HomePage() {
     return (

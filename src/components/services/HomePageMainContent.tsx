@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import MainContentHeader from "./MainContentHeader";
+import MainContentHeader from "../layout/MainContentHeader";
 import HomePageMainBody2 from "./HomePageMainBody2";
 
 function HomePageMainContent() {

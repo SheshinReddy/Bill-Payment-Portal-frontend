@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { sideBarCategories } from "../data/globalData";
+import { sideBarCategories } from "../../data/globalData";
 
 function MobileNavbar() {
     const theme = useTheme(); 

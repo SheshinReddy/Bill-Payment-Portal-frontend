@@ -1,5 +1,5 @@
 import { Divider, Stack } from "@mui/material";
-import { services } from "../data/globalData";
+import { services } from "../../data/globalData";
 import CategoryCard from "./CategoryCard";
 import "../styles/HomePageMainBody2.css"
 

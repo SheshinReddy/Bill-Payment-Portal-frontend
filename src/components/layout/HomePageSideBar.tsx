@@ -2,7 +2,7 @@ import { Box, Stack, useTheme } from "@mui/material";
 import SideBarComponent from "./SideBarComponent";
 import LogInSideBar from "./LogInSideBar";
 import { useState } from "react";
-import { sideBarCategories } from "../data/globalData";
+import { sideBarCategories } from "../../data/globalData";
 
 function HomePageSideBar() {
     const theme = useTheme();
