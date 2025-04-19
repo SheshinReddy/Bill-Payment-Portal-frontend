@@ -22,9 +22,9 @@ function HomePageSideBar() {
                 minHeight: "100vh",
                 height: "100%",
                 backgroundColor: theme.palette.primary.main,
-                overflowY: "auto",
+                // overflowY: "auto",
                 justifyContent: "space-between",
-                display: { xs: "none", md: "block" }
+                display: { xs: "none", md: "flex" }
             }}
         >
             <Stack
@@ -35,9 +35,13 @@ function HomePageSideBar() {
             >
                 <Box
                     className="logo"
+                    onClick= {() => console.log("clicked pupil pay icon")}
                     sx={{
                         margin: "50px 0 80px 10px",
-                        padding: "0 16px"
+                        padding: "0 16px",
+                        "&:hover": {
+                            cursor: "pointer",
+                        },
                     }}
                 >
                     <img

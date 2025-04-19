@@ -22,18 +22,28 @@ function CategoryCard({ categoryName, items }: ServiceCategoryType) {
             >
                 {items.map((item, index) => (
                     <Grid
+                        className="grid-container"
                         key={index}
                         size={{ xs: 4, sm: 4, md: 3, lg: 3, xl: 2 }}
                     >
                         <Stack
                             spacing={1}
+                            onClick={() => {
+                                console.log("clicked")
+                            }}
                             sx={{
                                 border: '1px solid #E0E0E0',
                                 borderRadius: '8px',
                                 padding: '16px',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                height: "150px"
+                                height: "150px",
+                                "&:hover": {
+                                    cursor: "pointer",
+                                    border: "2px solid #181A22",
+                                    borderRadius: "8px",
+                                    transition: "all 0.3s ease"
+                                },
                             }}>
                             <Box
                                 sx={{
