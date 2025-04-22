@@ -1,7 +1,9 @@
-function BillersPage () {
+import MainContentHeader from "../components/layout/MainContentHeader";
+
+function BillersPage ({title}: {title: string}) {
     return (
         <>
-            This is Billers Page
+            <MainContentHeader title={title}/>
         </>
     )
 }

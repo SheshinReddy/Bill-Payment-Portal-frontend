@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/billers/:category",
-        element: <BillersPage/>
+        element: <BillersPage title="Billers"/>
     },
     {
         path: "/biller-form/:billerId",

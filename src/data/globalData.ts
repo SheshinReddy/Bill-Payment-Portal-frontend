@@ -1,3 +1,29 @@
+import BroadbandPostpaidIcon from "../assets/service-icons/BroadbandPostpaidIcon";
+import ElectricityIcon from "../assets/service-icons/ElectricityIcon";
+import MobilePostpaidIcon from "../assets/service-icons/MobilePostpaidIcon";
+import LandlinePostpaidIcon from "../assets/service-icons/LandlinePostpaidIcon";
+import WaterIcon from "../assets/service-icons/WaterIcon";
+import BookACylinderIcon from "../assets/service-icons/BookACylinderIcon";
+import PipedGasIcon from "../assets/service-icons/PipedGasIcon";
+import EducationFeesIcon from "../assets/service-icons/EducationFeesIcon";
+import FastagIcon from "../assets/service-icons/FastagIcon";
+import CableTvIcon from "../assets/service-icons/CableTvIcon";
+import DthIcon from "../assets/service-icons/DthIcon";
+import InsuranceIcon from "../assets/service-icons/InsuranceIcon";
+import LoanRepaymentIcon from "../assets/service-icons/LoanRepaymentIcon";
+import SubscriptionIcon from "../assets/service-icons/SubscriptionIcon";
+import HousingSocietyIcon from "../assets/service-icons/HousingSocietyIcon";
+import CreditCardIcon from "../assets/service-icons/CreditCardIcon";
+import MunicipalServicesIcon from "../assets/service-icons/MunicipalServicesIcon";
+import RecurringDepositIcon from "../assets/service-icons/RecurringDepositIcon";
+import HospitalIcon from "../assets/service-icons/HospitalIcon";
+import NPSIcon from "../assets/service-icons/NPSIcon";
+import ClubsAndAssociationsIcon from "../assets/service-icons/ClubsAndAssociationsIcon";
+import PayBillsIcon from "../assets/navigation-icons/PayBillsIcon";
+import TransactionsIcon from "../assets/navigation-icons/TransactionsIcon";
+import ComplaintsIcon from "../assets/navigation-icons/ComplaintsIcon";
+import SavedBillsIcon from "../assets/navigation-icons/SavedBillsIcon";
+
 export type billerFormFieldType = {
     name: string;
     placeholder: string;
@@ -15,7 +41,7 @@ export type billerType = {
 
 export type ServiceItemType = {
     name: string;
-    iconSource: string;
+    icon: React.FC;
     billers?: billerType[];
 };
 
@@ -32,72 +58,71 @@ export const services: ServicesType = [
         items: [
             {
                 name: "Electricity",
-                iconSource: "src/assets/service-icons/electricity.svg",
-                billers: [
-                    
-                ]
+                icon: ElectricityIcon,
+                billers: []
             },
-            { name: "Broadband Postpaid", iconSource: "src/assets/service-icons/broadband-postpaid.svg" },
-            { name: "Mobile Postpaid", iconSource: "src/assets/service-icons/mobile-postpaid.svg" },
-            { name: "Landline Postpaid", iconSource: "src/assets/service-icons/landline-postpaid.svg" },
-            { name: "Water", iconSource: "src/assets/service-icons/water.svg" },
-            { name: "Book a Cylinder", iconSource: "src/assets/service-icons/book-a-cylinder.svg" },
-            { name: "Piped Gas", iconSource: "src/assets/service-icons/piped-gas.svg" },
-            { name: "Education Fees", iconSource: "src/assets/service-icons/education-fees.svg" }
+            { name: "Broadband Postpaid", icon: BroadbandPostpaidIcon },
+            { name: "Mobile Postpaid", icon: MobilePostpaidIcon },
+            { name: "Landline Postpaid", icon: LandlinePostpaidIcon },
+            { name: "Water", icon: WaterIcon },
+            { name: "Book a Cylinder", icon: BookACylinderIcon },
+            { name: "Piped Gas", icon: PipedGasIcon },
+            { name: "Education Fees", icon: EducationFeesIcon }
         ]
     },
     {
         categoryName: "Recharges and Bills",
         items: [
-            { name: "FASTag", iconSource: "src/assets/service-icons/fastag.svg" },
-            { name: "Cable TV", iconSource: "src/assets/service-icons/cable-tv.svg" },
-            { name: "DTH", iconSource: "src/assets/service-icons/dth.svg" }
+            { name: "FASTag", icon: FastagIcon },
+            { name: "Cable TV", icon: CableTvIcon },
+            { name: "DTH", icon: DthIcon }
         ]
     },
     {
         categoryName: "Finance and Tax",
         items: [
-            { name: "Insurance", iconSource: "src/assets/service-icons/insurance.svg" },
-            { name: "Loan Repayment", iconSource: "src/assets/service-icons/loan-repayment.svg" },
-            { name: "Recurring Deposit", iconSource: "src/assets/service-icons/recurring-deposit.svg" },
-            { name: "Municipal Services", iconSource: "src/assets/service-icons/municipal-services.svg" },
-            { name: "Credit Card", iconSource: "src/assets/service-icons/credit-card.svg" },
-            { name: "NPS", iconSource: "src/assets/service-icons/nps.svg" }
+            { name: "Insurance", icon: InsuranceIcon },
+            { name: "Loan Repayment", icon: LoanRepaymentIcon },
+            { name: "Recurring Deposit", icon: RecurringDepositIcon },
+            { name: "Municipal Services", icon: MunicipalServicesIcon },
+            { name: "Credit Card", icon: CreditCardIcon },
+            { name: "NPS", icon: NPSIcon }
         ]
     },
     {
         categoryName: "Others",
         items: [
-            { name: "Subscription", iconSource: "src/assets/service-icons/subscription.svg" },
-            { name: "Housing Society", iconSource: "src/assets/service-icons/housing-society.svg" },
-            { name: "Clubs & Associations", iconSource: "src/assets/service-icons/clubs-and-associations.svg" },
-            { name: "Hospital", iconSource: "src/assets/service-icons/hospital.svg" },
-            { name: "Rental", iconSource: "src/assets/service-icons/rental.svg" },
-            { name: "Donation", iconSource: "src/assets/service-icons/donation.svg" }
+            { name: "Subscription", icon: SubscriptionIcon },
+            { name: "Housing Society", icon: HousingSocietyIcon },
+            { name: "Clubs & Associations", icon: ClubsAndAssociationsIcon },
+            { name: "Hospital", icon: HospitalIcon },
+            { name: "Rental", icon: ElectricityIcon },
+            { name: "Donation", icon: ElectricityIcon }
         ]
     }
 ];
 
+
 type navBarCategoryType = {
-    icon: string;
+    icon: React.FC;
     text: string;
 }
 
 export const sideBarCategories: navBarCategoryType[] = [
     {
-        icon: "src/assets/navigation-icons/pay-bills.svg",
+        icon: PayBillsIcon,
         text: "Pay Bills",
     },
     {
-        icon: "src/assets/navigation-icons/transactions.svg",
+        icon: TransactionsIcon,
         text: "Transactions",
     },
     {
-        icon: "src/assets/navigation-icons/complaints.svg",
+        icon: ComplaintsIcon,
         text: "Complaints",
     },
     {
-        icon: "src/assets/navigation-icons/saved-bills.svg",
+        icon: SavedBillsIcon,
         text: "Saved Bills",
     },
 ];

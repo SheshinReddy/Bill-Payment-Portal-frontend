@@ -1,8 +1,9 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material"
-import "../styles/SideBarComponent.css";
+import "../../styles/SideBarComponent.css";
+import React from "react";
 
 export interface SideBarProps {
-    icon: string;
+    icon: React.FC;
     text: string;
     className: string;
     onClick: () => void;
@@ -10,6 +11,7 @@ export interface SideBarProps {
 
 function SideBarComponent({ icon, text, className, onClick }: SideBarProps) {
     const theme = useTheme();
+    const Icon = icon;
     return (
         <Stack
             className={`sidebar-component-container ${className}`}
@@ -21,15 +23,20 @@ function SideBarComponent({ icon, text, className, onClick }: SideBarProps) {
                 alignItems: "center",
                 justifyContent: "flex-start",
                 "&:hover": {
+                    backgroundColor: theme.palette.customBackground.sideBar,
                     cursor: "pointer",
+                    borderRadius: "8px",
+                    transition: "all 0.3s ease"
                 }
             }}
         >
-            <Box>
-                <img
-                    src={icon}
-                    alt={text}
-                />
+            <Box
+                sx={{
+                    height: "24px",
+                    width: "24px",
+                }}
+            >
+                {Icon && <Icon/>}
             </Box>
             <Typography
                 sx={{

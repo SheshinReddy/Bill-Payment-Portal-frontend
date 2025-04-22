@@ -1,0 +1,12 @@
+.root {
+    --primary-color: "#292D32";
+    --secondary-color: "#A9ABAD"
+}
+
+.primary-color {
+    fill: "#292D32"
+}
+
+.secondary-color {
+    fill: "#A9ABAD"
+}

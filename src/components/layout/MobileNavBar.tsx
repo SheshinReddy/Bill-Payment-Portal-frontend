@@ -38,6 +38,8 @@ function MobileNavbar() {
                         <Typography
                             sx={{
                                 color: theme.palette.primary.contrastText,
+                                fontSize: "12px",
+                                fontWeight: 500,
                             }}
                         >
                             {category.text}

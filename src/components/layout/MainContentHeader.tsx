@@ -1,5 +1,6 @@
-import { Box, Stack, TextField, Typography } from "@mui/material";
-import "../styles/MainContentHeader.css";
+import { Box, Stack, Typography } from "@mui/material";
+import SearchField from "../common/SearchField";
+import BharatConnectIcon from "../common/BharatConnectIcon";
 
 type MainContentHeaderProps = {
     title: string;
@@ -39,53 +40,10 @@ function MainContentHeader({ title }: MainContentHeaderProps) {
                         {title}
                     </Typography>
                 </Box>
-                <Box
-                    sx={{
-                        height: "40px",
-                        paddingTop: "2px",
-                    }}
-                >
-                    <img
-                        src="src\assets\bharatConnect.svg"
-                        style={{
-                            width: "100%",
-                            objectFit: "cover"
-                        }}
-                    />
-                </Box>
+                <BharatConnectIcon/>
             </Stack>
 
-            {/* for search bar */}
-            <div
-                className="search-bar-container"
-            >
-                <TextField
-                    className="search-bar"
-                    type="search"
-                    placeholder="Search for a Bill category"
-                    sx={{
-                        minWidth: {
-                            xs: "280px",
-                            md: "350px",
-                            lg: "450px",
-                            xl: "500px"
-                        },
-                        marginTop: "32px"
-                    }}
-                    InputProps={{
-                        startAdornment: (
-                            <img
-                                src="src\assets\search.svg"
-                                style={{
-                                    width: "20px",
-                                    height: "20px",
-                                    padding: "0.5px 0"
-                                }}
-                            />
-                        )
-                    }}
-                />
-            </div>
+            <SearchField/>
         </Stack>
     )
 }
