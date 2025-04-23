@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
-import SearchField from "../common/SearchField";
-import BharatConnectIcon from "../common/BharatConnectIcon";
+import BharatConnectIcon from "../../common/BharatConnectIcon";
+import SearchField from "../../common/SearchField";
 
 type MainContentHeaderProps = {
     title: string;

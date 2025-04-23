@@ -1,8 +1,9 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { sideBarCategories } from "../../data/globalData";
+import { sideBarCategories } from "../../../data/globalData";
+
 
 function MobileNavbar() {
-    const theme = useTheme(); 
+    const theme = useTheme();
     return (
         <Stack
             direction="row"
@@ -19,7 +20,9 @@ function MobileNavbar() {
                 padding: "12px 0"
             }}
         >
-            {sideBarCategories.map((category, index) => (
+            {sideBarCategories.map((category, index) => {
+                const Icon = category.icon;
+                return(
                 <Stack
                     key={index}
                     direction="column"
@@ -29,10 +32,7 @@ function MobileNavbar() {
                     }}
                 >
                     <Box>
-                        <img
-                            src={category.icon}
-                            alt={category.text}
-                        />
+                        {Icon && <Icon />}
                     </Box>
                     <Box>
                         <Typography
@@ -46,7 +46,7 @@ function MobileNavbar() {
                         </Typography>
                     </Box>
                 </Stack>
-            ))}
+            )})}
         </Stack>
     )
 }

@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material"
-import "../../styles/SideBarComponent.css";
+import "./SideBarComponent.css";
 import React from "react";
 
 export interface SideBarProps {

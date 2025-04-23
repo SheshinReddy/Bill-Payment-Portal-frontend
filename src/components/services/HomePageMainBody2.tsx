@@ -1,7 +1,7 @@
 import { Divider, Stack } from "@mui/material";
 import { services } from "../../data/globalData";
 import CategoryCard from "./CategoryCard";
-import "../../styles/HomePageMainBody2.css";
+import "./HomePageMainBody2.css";
 
 function HomePageMainBody2() {
   return (

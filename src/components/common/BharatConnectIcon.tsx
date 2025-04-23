@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import bharatConnectIcon from "../../assets/logos/bharatConnect.svg";
 
 function BharatConnectIcon() {
     return (
@@ -9,7 +10,7 @@ function BharatConnectIcon() {
             }}
         >
             <img
-                src="src\assets\bharatConnect.svg"
+                src={bharatConnectIcon}
                 style={{
                     width: "100%",
                     objectFit: "cover"

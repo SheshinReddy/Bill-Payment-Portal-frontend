@@ -1,4 +1,4 @@
-import LoginIcon from "../../assets/navigation-icons/LoginIcon";
+import LoginIcon from "../../../assets/icons/navigation/LoginIcon";
 import SideBarComponent from "./SideBarComponent";
 
 function LogInSideBar() {

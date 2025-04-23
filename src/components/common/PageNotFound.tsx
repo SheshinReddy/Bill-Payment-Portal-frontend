@@ -1,13 +1,7 @@
-import { Typography } from "@mui/material"
+import { Typography } from "@mui/material";
 
 function PageNotFound() {
-    return (
-        <>
-        <Typography variant="h1">
-            Page Not Found
-        </Typography>
-        </>
-    )
+  return <Typography variant="h1">Page Not Found</Typography>;
 }
 
-export default PageNotFound
+export default PageNotFound;
