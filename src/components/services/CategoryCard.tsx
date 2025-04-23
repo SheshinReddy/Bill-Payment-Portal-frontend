@@ -1,8 +1,9 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { ServiceCategoryType } from "../../data/globalData";
-import React from "react";
+import { Link } from "react-router-dom";
 
-function CategoryCard({ categoryName, items }: ServiceCategoryType) {
+function CategoryCard({ categoryName, categoryServices }: ServiceCategoryType) {
+  const handleClick = () => {};
   return (
     <Stack spacing={2}>
       <Box>
@@ -16,17 +17,19 @@ function CategoryCard({ categoryName, items }: ServiceCategoryType) {
         </Typography>
       </Box>
       <Grid container spacing={3}>
-        {items.map((item, index) => (
+        {categoryServices.map((service, index) => (
           <Grid
-            className="grid-container"
+            className="grid-item"
             key={index}
             size={{ xs: 6, sm: 4, md: 3, lg: 3, xl: 2 }}
           >
+            <Link
+              to={`/billers/${service.serviceName}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
             <Stack
               spacing={1}
-              onClick={() => {
-                console.log("clicked");
-              }}
+              onClick={handleClick}
               sx={{
                 border: "1px solid #E0E0E0",
                 borderRadius: "8px",
@@ -48,7 +51,7 @@ function CategoryCard({ categoryName, items }: ServiceCategoryType) {
                   height: "60px",
                 }}
               >
-                {item.icon && <item.icon />}
+                {service.serviceIcon && <service.serviceIcon />}
               </Box>
               <Box sx={{}}>
                 <Typography
@@ -58,10 +61,11 @@ function CategoryCard({ categoryName, items }: ServiceCategoryType) {
                     textAlign: "center",
                   }}
                 >
-                  {item.name}
+                  {service.serviceName}
                 </Typography>
               </Box>
             </Stack>
+            </Link>
           </Grid>
         ))}
       </Grid>
