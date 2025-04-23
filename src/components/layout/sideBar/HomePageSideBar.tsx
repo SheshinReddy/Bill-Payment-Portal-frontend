@@ -1,9 +1,9 @@
 import { Box, Stack, useTheme } from "@mui/material";
-import SideBarComponent from "./SideBarComponent";
-import LogInSideBar from "./LogInSideBar";
 import { useState } from "react";
-import { sideBarCategories } from "../../data/globalData";
-import PupilPayIcon from "../../assets/PupilPayIcon";
+import PupilPayIcon from "../../../assets/logos/PupilPayIcon";
+import { sideBarCategories } from "../../../data/globalData";
+import LogInSideBar from "./LogInSideBar";
+import SideBarComponent from "./SideBarComponent";
 
 function HomePageSideBar() {
   const theme = useTheme();

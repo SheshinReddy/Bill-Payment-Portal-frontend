@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
-import "../../styles/SearchField.css";
-// import "src/styles/SearchField.css"
+import "./SearchField.css";
+import searchIcon from "../../assets/icons/utility/search.svg"
 
 function SearchField() {
     return (
@@ -23,7 +23,7 @@ function SearchField() {
                 InputProps={{
                     startAdornment: (
                         <img
-                            src="src\assets\search.svg"
+                            src={searchIcon}
                             style={{
                                 width: "20px",
                                 height: "20px",
