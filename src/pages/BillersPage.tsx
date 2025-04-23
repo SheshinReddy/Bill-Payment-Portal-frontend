@@ -1,7 +1,7 @@
 
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
-import BillersPageMainContent from "../components/services/BillersPageMainContent";
+import BillersPageMainContent from "../components/services/BillersPageMainBody";
 import MobileNavbar from "../components/layout/mobile/MobileNavBar";
 import HomePageSideBar from "../components/layout/sideBar/HomePageSideBar";
 

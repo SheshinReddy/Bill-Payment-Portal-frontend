@@ -4,6 +4,7 @@ import PupilPayIcon from "../../../assets/logos/PupilPayIcon";
 import { sideBarCategories } from "../../../data/globalData";
 import LogInSideBar from "./LogInSideBar";
 import SideBarComponent from "./SideBarComponent";
+import { Link } from "react-router-dom";
 
 function HomePageSideBar() {
   const theme = useTheme();
@@ -28,19 +29,21 @@ function HomePageSideBar() {
       }}
     >
       <Stack direction="column">
-        <Box
-          className="logo"
-          onClick={() => console.log("clicked pupil pay icon")}
-          sx={{
-            margin: "50px 0 80px 10px",
-            padding: "0 16px",
-            "&:hover": {
-              cursor: "pointer",
-            },
-          }}
-        >
-          <PupilPayIcon />
-        </Box>
+        <Link to="/">
+          <Box
+            className="logo"
+            onClick={() => console.log("clicked pupil pay icon")}
+            sx={{
+              margin: "50px 0 80px 10px",
+              padding: "0 16px",
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
+          >
+            <PupilPayIcon />
+          </Box>
+        </Link>
 
         <Stack
           direction="column"
@@ -53,15 +56,16 @@ function HomePageSideBar() {
             {sideBarCategories.map((category, index) => {
               const Icon = category.icon;
               return (
-              <div key={index}>
-                <SideBarComponent
-                  className={category.text === "Pay Bills" ? "active" : ""}
-                  icon={Icon}
-                  text={category.text}
-                  onClick={handleClick}
-                />
-              </div>
-            )})}
+                <div key={index}>
+                  <SideBarComponent
+                    className={category.text === "Pay Bills" ? "active" : ""}
+                    icon={Icon}
+                    text={category.text}
+                    onClick={handleClick}
+                  />
+                </div>
+              );
+            })}
           </Stack>
         </Stack>
       </Stack>
