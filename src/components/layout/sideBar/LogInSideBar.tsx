@@ -1,17 +1,22 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
 import LoginIcon from "../../../assets/icons/navigation/LoginIcon";
 import SideBarComponent from "./SideBarComponent";
+import { LoginContext } from "../../../context/LoginContext";
 
 function LogInSideBar() {
+  const { openLoginBanner } = useContext(LoginContext);
+
+  const handleLoginClick = () => {
+    openLoginBanner();
+  };
+
   return (
-    <Link to="/login" style={{textDecoration: "none", color: "inherit"}}>
     <SideBarComponent
       icon={LoginIcon}
       text="Login to your Account"
       className="login-side-bar"
-      onClick={() => {}}
+      onClick={handleLoginClick}
     />
-    </Link>
   );
 }
 
