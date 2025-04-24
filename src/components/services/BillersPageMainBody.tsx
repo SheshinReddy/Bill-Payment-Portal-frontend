@@ -23,7 +23,7 @@ function BillersPageMainBody() {
   }, [category]);
 
   return (
-    <Stack spacing={2} sx={{ height: "300px", overflowY: "scroll" }}>
+    <Stack spacing={2} sx={{ height: "300px", overflowY: "scroll", maxWidth: {xs: "95%", md: "800px"} }}>
       {selectedService &&
         selectedService.serviceBillers?.map((biller) => {
           return (
@@ -50,8 +50,12 @@ function BillersPageMainBody() {
                     }}
                   />
                 </Box>
-                <Box>
-                  <Typography>{biller.billerName}</Typography>
+                <Box
+                  sx={{
+                    width: "100%",
+                  }}
+                >
+                  <Typography sx={{textWrap: "wrap"}}>{biller.billerName}</Typography>
                 </Box>
               </Stack>
             </Link>

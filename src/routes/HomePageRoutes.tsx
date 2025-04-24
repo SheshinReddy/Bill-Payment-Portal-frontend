@@ -21,11 +21,11 @@ export const router = createBrowserRouter([
             {
                 path: "/biller-form/:billerId",
                 element: <BillersFormPage/>
+            },
+            {
+                path: "*",
+                element: <PageNotFound/>
             }
         ]
-    },
-    {
-        path: "*",
-        element: <PageNotFound/>
     }
 ])

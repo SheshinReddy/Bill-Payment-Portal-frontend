@@ -545,23 +545,28 @@ export const allServices: ServicesType = [
 type navBarCategoryType = {
   icon: React.FC;
   text: string;
+  path?: string
 };
 
 export const sideBarCategories: navBarCategoryType[] = [
   {
     icon: PayBillsIcon,
     text: "Pay Bills",
+    path: "/"
   },
   {
     icon: TransactionsIcon,
     text: "Transactions",
+    path: "/transactions"
   },
   {
     icon: ComplaintsIcon,
     text: "Complaints",
+    path: "/complaints"
   },
   {
     icon: SavedBillsIcon,
     text: "Saved Bills",
+    path: "/saved-bills"
   },
 ];
