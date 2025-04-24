@@ -82,156 +82,397 @@ export const allServices: ServicesType = [
           {
             billerName: "BSES Rajdhani Power Limited",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "9 Digit CA Number",
+                }
+            ]
           },
           {
             billerName: "BSES Yamuna Power Limited",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Customer Account Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Chhattisgarh State Power Distribution Company Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Service Connection ID",
+                }
+            ]
           },
           {
             billerName: "Dakshin Gujarat Vij Company Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Dakshin Haryana Bijli Vitran Nigam",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Account Number",
+                }
+            ]
           },
           {
             billerName: "Goa Electricity Department",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Gujarat Electricity Board",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Service Number",
+                }
+            ]
           },
           {
             billerName: "Hubli Electricity Supply Company Ltd (HESCOM)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "RR Number",
+                }
+            ]
           },
           {
             billerName: "India Power Corporation Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Customer ID",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Jodhpur Vidyut Vitran Nigam Limited (JVVNL)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "K Number",
+                }
+            ]
           },
           {
             billerName: "Jaipur Vidyut Vitran Nigam Ltd (JVVNL)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "K Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Jammu and Kashmir Power Development Department",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Service Connection Number",
+                }
+            ]
           },
           {
             billerName: "Jharkhand Bijli Vitran Nigam Limited",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                }
+            ]
           },
           {
             billerName: "Kanpur Electricity Supply Company (KESCO)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Account ID",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Kerala State Electricity Board Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "13 Digit Consumer Number",
+                }
+            ]
           },
           {
             billerName: "Madhya Pradesh Poorv Kshetra Vidyut Vitaran Co. Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "IVR Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Madhya Pradesh Paschim Kshetra Vidyut Vitaran Co. Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                }
+            ]
           },
           {
             billerName:
               "Maharashtra State Electricity Distribution Co. Ltd (MSEDCL)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Manipur State Power Distribution Company Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer ID",
+                }
+            ]
           },
           {
             billerName: "Meghalaya Power Distribution Corporation Limited",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                }
+            ]
           },
           {
             billerName: "North Bihar Power Distribution Company Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Paschim Gujarat Vij Company Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                }
+            ]
           },
           {
             billerName: "Punjab State Power Corporation Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Account Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Rajasthan Vidyut Vitran Nigam Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "K Number",
+                }
+            ]
           },
           {
             billerName: "South Bihar Power Distribution Company Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Southern Power Distribution Company of Telangana Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Service Number",
+                }
+            ]
           },
           {
             billerName:
               "Tamil Nadu Generation and Distribution Corporation Limited (TANGEDCO)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Torrent Power - Ahmedabad",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Service Number",
+                }
+            ]
           },
           {
             billerName: "Torrent Power - Bhiwandi",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Service Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Torrent Power - Surat",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Service Number",
+                }
+            ]
           },
           {
             billerName: "Tripura State Electricity Corporation Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer ID",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Uttar Gujarat Vij Company Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                }
+            ]
           },
           {
             billerName: "Uttar Haryana Bijli Vitran Nigam",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Account Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Uttar Pradesh Power Corporation Ltd (UPPCL)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Account Number",
+                }
+            ]
           },
           {
             billerName: "West Bengal State Electricity Distribution Co. Ltd",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer ID",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Western Electricity Supply Company of Odisha (WESCO)",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                }
+            ]
           },
           {
             billerName: "Tata Power Delhi Distribution Limited",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "CA Number",
+                },
+                {
+                    billerPlaceholder: "Enter Amount",
+                }
+            ]
           },
           {
             billerName: "Tata Power Mumbai",
             billerIcon: ElectricityIcon,
+            billerForm: [
+                {
+                    billerPlaceholder: "Consumer Number",
+                }
+            ]
           },
         ],
       },
