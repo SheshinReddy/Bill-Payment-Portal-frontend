@@ -1,12 +1,15 @@
 import './App.css'
 import {RouterProvider} from "react-router-dom";
 import { router } from './routes/HomePageRoutes';
+import { LoginProvider } from './context/LoginContext';
 
 function App() {
   return (
-    <RouterProvider
-      router={router}
-    />
+    <LoginProvider>
+      <RouterProvider
+        router={router}
+      />
+    </LoginProvider>
   )
 }
 

@@ -48,7 +48,6 @@ function HomePageSideBar() {
         <Stack
           direction="column"
           sx={{
-            // justifyContent: "space-between",
             justifyContent: "space-around",
           }}
         >
@@ -69,6 +68,7 @@ function HomePageSideBar() {
           </Stack>
         </Stack>
       </Stack>
+      {/* Login sidebar without Link wrapper */}
       <LogInSideBar />
     </Stack>
   );
