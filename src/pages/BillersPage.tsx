@@ -1,18 +1,19 @@
-
 import { useParams } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import BillersPageMainContent from "../components/services/BillersPageMainBody";
 import MobileNavbar from "../components/layout/mobile/MobileNavBar";
 import HomePageSideBar from "../components/layout/sideBar/HomePageSideBar";
+import MainContentHeader from "../components/layout/header/MainContentHeader";
 
 function BillersPage() {
   const { category } = useParams();
+  const categoryName = category || "Billers";
+  
   return (
     <Box
-      className="home-page-container"
+      className="billers-page-container"
       sx={{
         display: "flex",
-        flexdirection: "column",
         width: "100%",
         paddingBottom: {
           xs: "50px",
@@ -21,7 +22,15 @@ function BillersPage() {
       }}
     >
       <HomePageSideBar />
-      <BillersPageMainContent category={category || "Billers"} />
+      <Stack
+        sx={{
+          padding: "32px",
+          width: "100%",
+        }}
+      >
+        <MainContentHeader title={`${categoryName}`} />
+        <BillersPageMainContent />
+      </Stack>
       <MobileNavbar />
     </Box>
   );

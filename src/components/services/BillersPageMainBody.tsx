@@ -1,68 +1,74 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { allServices, ServiceItemType } from "../../data/globalData";
+import { billerType } from "../../data/globalData";
+import { getBillersByCategory } from "../../services/billerService";
 
-function BillersPageMainBody() {
-  const { category } = useParams();
-  const [selectedService, setSelectedService] = useState<
-    ServiceItemType | undefined
-  >(undefined);
+function BillersPageMainContent() {
+  const { category } = useParams<{ category: string }>();
+  const [billers, setBillers] = useState<billerType[]>([]);
 
   useEffect(() => {
-    for (const categoryItem of allServices) {
-      const service = categoryItem.categoryServices.find(
-        (service) =>
-          service.serviceName.toLowerCase() === category?.toLowerCase()
-      );
-      if (service) {
-        setSelectedService(service);
-        break;
-      }
+    if (category) {
+      // Get billers for the category
+      const foundBillers = getBillersByCategory(category);
+      setBillers(foundBillers);
     }
   }, [category]);
 
   return (
-    <Stack spacing={2} sx={{ height: "300px", overflowY: "scroll", maxWidth: {xs: "95%", md: "800px"} }}>
-      {selectedService &&
-        selectedService.serviceBillers?.map((biller) => {
-          return (
-            <Link
-              to={biller.billerPath || ""}
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
-              <Stack direction="row" spacing={1}>
-                <Box
-                  sx={{
-                    height: "24px",
-                    width: "24px",
-                  }}
-                >
-                  <img
-                    src="https://www.apdcl.org/website/img/apdcl_logo.b56b6858.png"
-                    style={{
-                      height: "100%",
-                      width: "100%",
-                      objectFit: "contain",
-                    }}
-                  />
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                  }}
-                >
-                  <Typography sx={{textWrap: "wrap"}}>{biller.billerName}</Typography>
-                </Box>
-              </Stack>
-            </Link>
+    <Stack spacing={2} sx={{ width: "100%", maxWidth: "800px" }}>
+      <Typography variant="h5" sx={{ fontSize: "24px", marginBottom: "16px", marginTop: "24px" }}>
+        All billers
+      </Typography>
+
+      {billers.length > 0 ? (
+        billers.map((biller, index) => {
+          // Create URL-friendly version of biller name for the route
+          const billerIdParam = encodeURIComponent(
+            biller.billerName.toLowerCase().replace(/\s+/g, '-')
           );
-        })}
+          
+          return (
+            <Box key={index}>
+              <Link
+                to={`/biller-form/${category}/${billerIdParam}`}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "block",
+                }}
+              >
+                <Stack direction="row" spacing={2} alignItems="center" sx={{ padding: "12px 8px" }}>
+                  <Box
+                    sx={{
+                      height: "32px",
+                      width: "32px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#f0f0f0",
+                      borderRadius: "50%",
+                    }}
+                  >
+                    {biller.billerIcon && <biller.billerIcon />}
+                  </Box>
+                  <Box sx={{ width: "100%" }}>
+                    <Typography>{biller.billerName}</Typography>
+                  </Box>
+                </Stack>
+              </Link>
+              {index < billers.length - 1 && <Divider />}
+            </Box>
+          );
+        })
+      ) : (
+        <Typography color="text.secondary">
+          No billers available for this category.
+        </Typography>
+      )}
     </Stack>
   );
 }
 
-export default BillersPageMainBody;
+export default BillersPageMainContent;
