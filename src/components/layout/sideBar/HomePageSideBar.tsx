@@ -56,14 +56,14 @@ function HomePageSideBar() {
             {sideBarCategories.map((category, index) => {
               const Icon = category.icon;
               return (
-                <div key={index}>
+                <Link key={index} to={category.path || ""} style={{textDecoration: "none", color: "inherit"}}>
                   <SideBarComponent
                     className={category.text === "Pay Bills" ? "active" : ""}
                     icon={Icon}
                     text={category.text}
                     onClick={handleClick}
                   />
-                </div>
+                </Link>
               );
             })}
           </Stack>
