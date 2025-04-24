@@ -3,6 +3,7 @@ import MobileNavbar from "./mobile/MobileNavBar";
 import { Box, Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import MainContentHeader from "./header/MainContentHeader";
+import LogInBanner from "./LogInBanner";
 
 function Layout() {
   return (
@@ -28,6 +29,7 @@ function Layout() {
         <MainContentHeader title="Pay Bills" />
         <Outlet />
       </Stack>
+      <LogInBanner />
       <MobileNavbar />
     </Box>
   );
