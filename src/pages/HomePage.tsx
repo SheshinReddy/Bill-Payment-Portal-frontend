@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import MobileNavbar from "../components/layout/mobile/MobileNavBar";
 import HomePageSideBar from "../components/layout/sideBar/HomePageSideBar";
-import HomePageMainContent from "../components/services/HomePageMainContent";
+import HomePageMainBody from "../components/services/HomePageMainBody";
 
 function HomePage() {
   return (
@@ -18,7 +18,7 @@ function HomePage() {
       }}
     >
       <HomePageSideBar />
-      <HomePageMainContent />
+      <HomePageMainBody />
       <MobileNavbar />
     </Box>
   );

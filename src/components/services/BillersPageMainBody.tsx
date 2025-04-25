@@ -10,7 +10,6 @@ function BillersPageMainContent() {
 
   useEffect(() => {
     if (category) {
-      // Get billers for the category
       const foundBillers = getBillersByCategory(category);
       setBillers(foundBillers);
     }
@@ -24,7 +23,6 @@ function BillersPageMainContent() {
 
       {billers.length > 0 ? (
         billers.map((biller, index) => {
-          // Create URL-friendly version of biller name for the route
           const billerIdParam = encodeURIComponent(
             biller.billerName.toLowerCase().replace(/\s+/g, '-')
           );
