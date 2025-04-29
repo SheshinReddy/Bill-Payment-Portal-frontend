@@ -4,6 +4,10 @@ import PageNotFound from "../components/common/PageNotFound";
 import Layout from "../components/layout/Layout";
 import HomePageMainBody from "../components/services/HomePageMainBody";
 import BillersPage from "../pages/BillersPage";
+import BillDetailsPage from "../pages/BillDetailsPage";
+import TransactionsMainBody from "../components/services/TransactionsMainBody";
+import ComplaintsMainBody from "../components/services/ComplaintsMainBody";
+import SavedBillsMainBody from "../components/services/SavedBillsMainBody";
 
 export const router = createBrowserRouter([
   {
@@ -12,11 +16,23 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePageMainBody />
+        element: <HomePageMainBody /> 
       },
       {
         path: "*",
         element: <PageNotFound />
+      },
+      {
+        path: "/transactions",
+        element: <TransactionsMainBody />
+      },
+      {
+        path: "/complaints",
+        element: <ComplaintsMainBody />
+      },
+      {
+        path: "/saved-bills",
+        element: <SavedBillsMainBody />
       }
     ]
   },
@@ -27,5 +43,9 @@ export const router = createBrowserRouter([
   {
     path: "/biller-form/:category/:billerId",
     element: <BillerFormPage />
+  },
+  {
+    path: "/bill-details/:category/:billerId",
+    element: <BillDetailsPage />
   }
 ]);

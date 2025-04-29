@@ -26,6 +26,8 @@ function HomePageSideBar() {
         backgroundColor: theme.palette.primary.main,
         justifyContent: "space-between",
         display: { xs: "none", md: "flex" },
+        pb: "20px",
+        boxSizing: "border-box",
       }}
     >
       <Stack direction="column">
