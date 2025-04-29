@@ -8,6 +8,8 @@ import BillDetailsPage from "../pages/BillDetailsPage";
 import TransactionsMainBody from "../components/services/TransactionsMainBody";
 import ComplaintsMainBody from "../components/services/ComplaintsMainBody";
 import SavedBillsMainBody from "../components/services/SavedBillsMainBody";
+import PaymentPage from "../pages/PaymentPage";
+import PaymentSuccessPage from "../pages/PaymentSuccessPage";
 
 export const router = createBrowserRouter([
   {
@@ -47,5 +49,13 @@ export const router = createBrowserRouter([
   {
     path: "/bill-details/:category/:billerId",
     element: <BillDetailsPage />
+  },
+  {
+    path: "/payment/:category/:billerId",
+    element: <PaymentPage />
+  },
+  {
+    path: "/payment-success/:category/:billerId",
+    element: <PaymentSuccessPage />
   }
 ]);

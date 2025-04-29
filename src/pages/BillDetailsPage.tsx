@@ -162,22 +162,27 @@ function BillDetailsPage() {
                   <Typography variant="h5" sx={{ fontWeight: "600" }}>
                     ₹{billDetails.billAmount.toLocaleString()}
                   </Typography>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "#51508B",
-                      padding: "12px 24px",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      textTransform: "none",
-                      fontWeight: 500,
-                      "&:hover": {
-                        backgroundColor: "#444479",
-                      }
-                    }}
+                  <Link 
+                    to={`/payment/${category}/${billerId}`} 
+                    style={{ textDecoration: 'none' }}
                   >
-                    Pay Now
-                  </Button>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#51508B",
+                        padding: "12px 24px",
+                        borderRadius: "8px",
+                        color: "#fff",
+                        textTransform: "none",
+                        fontWeight: 500,
+                        "&:hover": {
+                          backgroundColor: "#444479",
+                        }
+                      }}
+                    >
+                      Pay Now
+                    </Button>
+                  </Link>
                 </Stack>
 
                 <Divider />
@@ -280,23 +285,28 @@ function BillDetailsPage() {
 
             {/* Action Buttons */}
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ marginTop: "16px" }}>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#51508B",
-                  padding: "12px 24px",
-                  borderRadius: "8px",
-                  color: "#fff",
-                  textTransform: "none",
-                  fontWeight: 500,
-                  flex: { sm: 1 },
-                  "&:hover": {
-                    backgroundColor: "#444479",
-                  }
-                }}
+              <Link 
+                to={`/payment/${category}/${billerId}`} 
+                style={{ textDecoration: 'none', flex: 1, display: 'block' }}
               >
-                Pay Now
-              </Button>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#51508B",
+                    padding: "12px 24px",
+                    borderRadius: "8px",
+                    color: "#fff",
+                    textTransform: "none",
+                    fontWeight: 500,
+                    "&:hover": {
+                      backgroundColor: "#444479",
+                    }
+                  }}
+                >
+                  Pay Now
+                </Button>
+              </Link>
               
               <Button
                 variant="outlined"
