@@ -7,19 +7,28 @@ import {
   Paper,
   Stack,
   Typography,
-  useTheme
+  useTheme,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { findBillerByIdAndCategory } from "../services/billerService";
 import MobileNavbar from "../components/layout/mobile/MobileNavBar";
 import HomePageSideBar from "../components/layout/sideBar/HomePageSideBar";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import PlaySoundButton from "../components/services/PlaySoundButton";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import HomeIcon from '@mui/icons-material/Home';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import { generateReceiptPDF } from "../utils/pdfUtils";
 
 function PaymentSuccessPage() {
   const theme = useTheme();
   const { billerId, category } = useParams();
   const [loading, setLoading] = useState(true);
+  const [downloading, setDownloading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error" | "info" | "warning">("success");
   
   // Audio ref for the mogo sound
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -31,6 +40,8 @@ function PaymentSuccessPage() {
     transactionDate: new Date().toLocaleString(),
     paymentMethod: "UPI",
     receiptNumber: "RCP" + Math.floor(Math.random() * 10000000),
+    customerName: "Rahul Sharma",
+    billNumber: "BILL" + Math.floor(Math.random() * 1000000)
   };
   
   // Get biller name
@@ -39,13 +50,17 @@ function PaymentSuccessPage() {
   useEffect(() => {
     // Initialize audio element
     if (typeof window !== 'undefined') {
-      // Create and configure audio
-      const audio = new Audio('/mogoSound.mp3');
-      audio.preload = "auto";
-      audioRef.current = audio;
-      
-      // Load audio
-      audio.load();
+      try {
+        // Create and configure audio
+        const audio = new Audio('/mogoSound.mp3');
+        audio.preload = "auto";
+        audioRef.current = audio;
+        
+        // Load audio
+        audio.load();
+      } catch (error) {
+        console.warn("Error initializing audio:", error);
+      }
     }
     
     // Simulate loading then play sound
@@ -78,19 +93,70 @@ function PaymentSuccessPage() {
     };
   }, []);
   
+  // Handle play sound
   const handlePlaySound = () => {
     if (audioRef.current) {
       try {
         // Reset to beginning
         audioRef.current.currentTime = 0;
         // Play (this will work as it's from a user interaction)
-        audioRef.current.play();
+        audioRef.current.play()
+          .then(() => {
+            console.log("Audio playing successfully");
+          })
+          .catch(error => {
+            console.warn("Failed to play audio:", error);
+            setSnackbarMessage("Failed to play sound. Please check your audio settings.");
+            setSnackbarSeverity("warning");
+            setSnackbarOpen(true);
+          });
       } catch (error) {
         console.error("Failed to play audio:", error);
+        setSnackbarMessage("Failed to play sound. Please check your audio settings.");
+        setSnackbarSeverity("warning");
+        setSnackbarOpen(true);
       }
+    } else {
+      setSnackbarMessage("Audio player not available");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
     }
   };
   
+  // Handle download receipt
+  const handleDownloadReceipt = async () => {
+    setDownloading(true);
+    
+    try {
+      // Create the receipt data object with biller name
+      const receiptData = {
+        ...transactionData,
+        billerName: billerName
+      };
+      
+      // Generate and download the PDF
+      await generateReceiptPDF(receiptData);
+      
+      // Show success message
+      setSnackbarMessage("Receipt downloaded successfully");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error("Error generating receipt PDF:", error);
+      
+      // Show error message
+      setSnackbarMessage("Failed to download receipt. Please try again.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    } finally {
+      setDownloading(false);
+    }
+  };
+  
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
   if (loading) {
     return (
       <Box
@@ -213,6 +279,9 @@ function PaymentSuccessPage() {
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: "100%" }}>
               <Button
                 variant="contained"
+                startIcon={<CloudDownloadIcon />}
+                disabled={downloading}
+                onClick={handleDownloadReceipt}
                 sx={{
                   flex: 1,
                   backgroundColor: theme.palette.icon.primary,
@@ -226,7 +295,7 @@ function PaymentSuccessPage() {
                   }
                 }}
               >
-                Download Receipt
+                {downloading ? "Downloading..." : "Download Receipt"}
               </Button>
               
               <Link 
@@ -235,6 +304,7 @@ function PaymentSuccessPage() {
               >
                 <Button
                   variant="outlined"
+                  startIcon={<HomeIcon />}
                   fullWidth
                   sx={{
                     borderColor: theme.palette.icon.primary,
@@ -258,7 +328,9 @@ function PaymentSuccessPage() {
             <Box sx={{ mt: 2 }}>
               <Button 
                 variant="outlined" 
+                startIcon={<VolumeUpIcon />}
                 onClick={handlePlaySound}
+                size="small"
                 sx={{
                   borderColor: theme.palette.icon.primary,
                   color: theme.palette.icon.primary,
@@ -279,6 +351,23 @@ function PaymentSuccessPage() {
           </Stack>
         </Paper>
       </Stack>
+      
+      {/* Snackbar for notifications */}
+      <Snackbar 
+        open={snackbarOpen} 
+        autoHideDuration={4000} 
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity={snackbarSeverity}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+      
       <MobileNavbar />
     </Box>
   );

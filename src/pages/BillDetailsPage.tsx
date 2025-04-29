@@ -1,10 +1,13 @@
-import { Box, Button, Stack, Typography, Paper, Divider, Chip } from "@mui/material";
+import { Box, Button, Stack, Typography, Paper, Divider, Chip, Snackbar, Alert } from "@mui/material";
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import HomePageSideBar from "../components/layout/sideBar/HomePageSideBar";
 import MobileNavbar from "../components/layout/mobile/MobileNavBar";
 import { findBillerByIdAndCategory } from "../services/billerService";
 import { billerType } from "../data/globalData";
+import { generateBillPDF } from "../utils/pdfUtils";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import PaymentIcon from '@mui/icons-material/Payment';
 
 // A type for the bill details
 type BillDetails = {
@@ -32,6 +35,10 @@ function BillDetailsPage() {
   const [biller, setBiller] = useState<billerType | null>(null);
   const [billDetails, setBillDetails] = useState<BillDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [downloading, setDownloading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error" | "info">("success");
 
   useEffect(() => {
     // Find the biller details
@@ -85,6 +92,47 @@ function BillDetailsPage() {
   const calculateTotal = () => {
     if (!billDetails) return 0;
     return billDetails.billBreakdown.reduce((total, item) => total + item.amount, 0);
+  };
+
+  // Handle download bill
+  const handleDownloadBill = async () => {
+    if (!billDetails || !biller) {
+      setSnackbarMessage("Bill details not available");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
+    
+    setDownloading(true);
+    
+    try {
+      // Create the bill data object with biller name included
+      const billData = {
+        ...billDetails,
+        billerName: biller.billerName
+      };
+      
+      // Generate and download the PDF
+      await generateBillPDF(billData);
+      
+      // Show success message
+      setSnackbarMessage("Bill downloaded successfully");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error("Error generating bill PDF:", error);
+      
+      // Show error message
+      setSnackbarMessage("Failed to download bill. Please try again.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -168,6 +216,7 @@ function BillDetailsPage() {
                   >
                     <Button
                       variant="contained"
+                      startIcon={<PaymentIcon />}
                       sx={{
                         backgroundColor: "#51508B",
                         padding: "12px 24px",
@@ -292,6 +341,7 @@ function BillDetailsPage() {
                 <Button
                   variant="contained"
                   fullWidth
+                  startIcon={<PaymentIcon />}
                   sx={{
                     backgroundColor: "#51508B",
                     padding: "12px 24px",
@@ -310,6 +360,9 @@ function BillDetailsPage() {
               
               <Button
                 variant="outlined"
+                startIcon={<CloudDownloadIcon />}
+                disabled={downloading}
+                onClick={handleDownloadBill}
                 sx={{
                   borderColor: "#51508B",
                   color: "#51508B",
@@ -323,7 +376,7 @@ function BillDetailsPage() {
                   }
                 }}
               >
-                Download Bill
+                {downloading ? "Downloading..." : "Download Bill"}
               </Button>
             </Stack>
           </Stack>
@@ -333,6 +386,23 @@ function BillDetailsPage() {
           </Box>
         )}
       </Stack>
+      
+      {/* Snackbar for notifications */}
+      <Snackbar 
+        open={snackbarOpen} 
+        autoHideDuration={4000} 
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity={snackbarSeverity}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+      
       <MobileNavbar />
     </Box>
   );
