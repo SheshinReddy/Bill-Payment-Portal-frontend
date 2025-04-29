@@ -189,6 +189,54 @@ interface ReceiptData {
 }
 
 /**
+ * Format address into multiple lines for better PDF display
+ * @param address Full address string
+ * @param maxCharsPerLine Maximum characters per line
+ * @returns Array of address lines
+ */
+function formatAddress(address: string, maxCharsPerLine: number = 40): string[] {
+  if (!address) return ['N/A'];
+  
+  // Split by commas first
+  const parts = address.split(',');
+  const lines: string[] = [];
+  let currentLine = '';
+  
+  for (const part of parts) {
+    const trimmedPart = part.trim();
+    
+    if (currentLine.length + trimmedPart.length + 2 <= maxCharsPerLine) {
+      // Can fit on current line
+      currentLine = currentLine ? `${currentLine}, ${trimmedPart}` : trimmedPart;
+    } else {
+      // Start a new line
+      if (currentLine) lines.push(currentLine);
+      currentLine = trimmedPart;
+    }
+  }
+  
+  // Add the last line if not empty
+  if (currentLine) lines.push(currentLine);
+  
+  return lines;
+}
+
+/**
+ * Format currency with rupee symbol
+ * @param amount Number to format
+ * @returns Formatted currency string
+ */
+function formatCurrency(amount: number): string {
+  // Use the Unicode character for Indian Rupee symbol
+  // We'll add "Rs. " as a fallback in case the symbol doesn't render
+  return `Rs. ${amount.toLocaleString()}`;
+}
+
+/**
+ * Generate a bill PDF for download
+ * @param billData The bill data to include in the PDF
+ */
+/**
  * Generate a bill PDF for download
  * @param billData The bill data to include in the PDF
  */
@@ -197,46 +245,53 @@ export const generateBillPDF = (billData: BillData): void => {
     // Create a new PDF document
     const doc = new jsPDF();
     
-    // Add logo/header
-    doc.setFontSize(20);
-    doc.setTextColor(81, 80, 139); // Primary color
-    doc.text('BharatConnect', 105, 20, { align: 'center' });
+    // Add BharatConnect logo at top right using PNG image
+    doc.addImage('/bharatConnect.png', 'PNG', 150, 5, 40, 15);
     
     // Bill title
-    doc.setFontSize(16);
+    doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text('BILL INVOICE', 105, 30, { align: 'center' });
+    doc.text('BILL INVOICE', 14, 22);
     
     // Add a line
     doc.setDrawColor(81, 80, 139);
     doc.setLineWidth(0.5);
-    doc.line(14, 35, 196, 35);
+    doc.line(14, 25, 196, 25);
+    
+    // Format the address into multiple lines
+    const addressLines = formatAddress(billData.connectionAddress || '');
     
     // Customer information
-    doc.setFontSize(12);
+    doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
-    doc.text('Bill To:', 14, 45);
-    doc.setFontSize(11);
-    doc.text(billData.customerName || 'Customer Name', 14, 52);
-    doc.text(billData.connectionAddress || 'Address', 14, 59);
+    doc.text('Bill To:', 14, 35);
+    doc.setFontSize(9);
+    doc.text(billData.customerName || 'Customer Name', 14, 40);
+    
+    // Print address lines
+    let currentY = 40;
+    for (const line of addressLines) {
+      currentY += 5;
+      doc.text(line, 14, currentY);
+    }
     
     // Bill Details
-    doc.setFontSize(12);
-    doc.text('Bill Details:', 120, 45);
-    doc.setFontSize(11);
-    doc.text(`Bill Number: ${billData.billNumber || 'N/A'}`, 120, 52);
-    doc.text(`Bill Date: ${billData.billDate || 'N/A'}`, 120, 59);
-    doc.text(`Due Date: ${billData.dueDate || 'N/A'}`, 120, 66);
-    doc.text(`Bill Period: ${billData.billPeriod || 'N/A'}`, 120, 73);
+    doc.setFontSize(10);
+    doc.text('Bill Details:', 120, 35);
+    doc.setFontSize(9);
+    doc.text(`Bill Number: ${billData.billNumber || 'N/A'}`, 120, 40);
+    doc.text(`Bill Date: ${billData.billDate || 'N/A'}`, 120, 45);
+    doc.text(`Due Date: ${billData.dueDate || 'N/A'}`, 120, 50);
+    doc.text(`Bill Period: ${billData.billPeriod || 'N/A'}`, 120, 55);
     
     // Add biller name
-    doc.text(`Biller: ${billData.billerName || 'Service Provider'}`, 14, 73);
+    doc.text(`Biller: ${billData.billerName || 'Service Provider'}`, 14, currentY + 10);
     
     // Bill breakdown table
     if (billData.billBreakdown && billData.billBreakdown.length > 0) {
       const tableData = billData.billBreakdown.map((item) => [
         item.description, 
-        `₹${item.amount.toLocaleString()}`
+        formatCurrency(item.amount)
       ]);
       
       // Calculate total amount
@@ -245,37 +300,42 @@ export const generateBillPDF = (billData: BillData): void => {
       );
       
       autoTable(doc,{
-        startY: 85,
+        startY: Math.max(currentY + 15, 70),
         head: [['Description', 'Amount']],
         body: tableData,
         theme: 'striped',
+        styles: {
+          fontSize: 9
+        },
         headStyles: { 
           fillColor: [81, 80, 139],
-          textColor: [255, 255, 255]
+          textColor: [255, 255, 255],
+          fontSize: 10
         },
-        foot: [['Total Amount', `₹${billData.billAmount ? billData.billAmount.toLocaleString() : totalAmount.toLocaleString()}`]],
+        foot: [['Total Amount', formatCurrency(billData.billAmount ? billData.billAmount : totalAmount)]],
         footStyles: { 
           fillColor: [240, 240, 240],
           textColor: [0, 0, 0],
-          fontStyle: 'bold'
+          fontStyle: 'bold',
+          fontSize: 10
         }
       });
     }
     
     // Get the final Y position after the table (or use default if no table)
     const finalY = (doc.lastAutoTable && typeof doc.lastAutoTable.finalY === 'number')
-  ? doc.lastAutoTable.finalY + 10
-  : 150;
+      ? doc.lastAutoTable.finalY + 10
+      : 140;
     
     // Add terms and notes
-    doc.setFontSize(10);
-    doc.text('Notes:', 14, finalY);
     doc.setFontSize(9);
-    doc.text('1. Please pay your bill before the due date to avoid late payment charges.', 14, finalY + 7);
-    doc.text('2. For any queries, please contact customer support.', 14, finalY + 14);
+    doc.text('Notes:', 14, finalY);
+    doc.setFontSize(8);
+    doc.text('1. Please pay your bill before the due date to avoid late payment charges.', 14, finalY + 5);
+    doc.text('2. For any queries, please contact customer support.', 14, finalY + 10);
     
     // Add footer
-    doc.setFontSize(8);
+    doc.setFontSize(7);
     doc.setTextColor(128, 128, 128);
     doc.text('This is a system generated bill and does not require signature.', 105, 280, { align: 'center' });
     doc.text('© BharatConnect 2025', 105, 285, { align: 'center' });
@@ -292,36 +352,38 @@ export const generateBillPDF = (billData: BillData): void => {
  * Generate a payment receipt PDF for download
  * @param receiptData The receipt data to include in the PDF
  */
+/**
+ * Generate a payment receipt PDF for download
+ * @param receiptData The receipt data to include in the PDF
+ */
 export const generateReceiptPDF = (receiptData: ReceiptData): void => {
   try {
     // Create a new PDF document
     const doc = new jsPDF();
     
-    // Add logo/header
-    doc.setFontSize(20);
-    doc.setTextColor(81, 80, 139); // Primary color
-    doc.text('BharatConnect', 105, 20, { align: 'center' });
+    // Add BharatConnect logo at top right using PNG image
+    doc.addImage('/bharatConnect.png', 'PNG', 150, 5, 40, 15);
     
     // Receipt title
-    doc.setFontSize(16);
+    doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text('PAYMENT RECEIPT', 105, 30, { align: 'center' });
+    doc.text('PAYMENT RECEIPT', 14, 22);
     
     // Add a line
     doc.setDrawColor(81, 80, 139);
     doc.setLineWidth(0.5);
-    doc.line(14, 35, 196, 35);
+    doc.line(14, 25, 196, 25);
     
     // Add success icon (simulated with text)
-    doc.setFontSize(14);
+    doc.setFontSize(12);
     doc.setTextColor(76, 175, 80); // Green color
-    doc.text('✓ Payment Successful', 105, 50, { align: 'center' });
+    doc.text('Payment Successful', 105, 40, { align: 'center' });
     
     // Receipt information in a table format
     const receiptDetails = [
       ['Transaction ID:', receiptData.transactionId || 'N/A'],
       ['Date & Time:', receiptData.transactionDate || 'N/A'],
-      ['Amount Paid:', `₹${receiptData.amount ? receiptData.amount.toLocaleString() : 'N/A'}`],
+      ['Amount Paid:', formatCurrency(receiptData.amount)],
       ['Payment Method:', receiptData.paymentMethod || 'N/A'],
       ['Receipt Number:', receiptData.receiptNumber || 'N/A'],
       ['Biller Name:', receiptData.billerName || 'N/A'],
@@ -330,12 +392,12 @@ export const generateReceiptPDF = (receiptData: ReceiptData): void => {
     ];
     
     autoTable(doc,{
-      startY: 60,
+      startY: 45,
       theme: 'plain',
       body: receiptDetails,
       styles: { 
-        cellPadding: 3,
-        fontSize: 11
+        cellPadding: 2,
+        fontSize: 9
       },
       columnStyles: { 
         0: { 
@@ -347,27 +409,27 @@ export const generateReceiptPDF = (receiptData: ReceiptData): void => {
     
     // Get the final Y position after the table
     const finalY = doc.lastAutoTable?.finalY 
-  ? doc.lastAutoTable.finalY + 15 
-  : 100;
+      ? doc.lastAutoTable.finalY + 10 
+      : 100;
     
     // Add payment confirmation
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text('This is to certify that the payment has been successfully processed.', 105, finalY, { align: 'center' });
     
     // Add terms and notes
-    doc.setFontSize(10);
-    doc.text('Notes:', 14, finalY + 20);
     doc.setFontSize(9);
-    doc.text('1. This is an official receipt for your payment.', 14, finalY + 27);
-    doc.text('2. Please keep this receipt for your records.', 14, finalY + 34);
-    doc.text('3. For any queries, please contact customer support.', 14, finalY + 41);
+    doc.text('Notes:', 14, finalY + 15);
+    doc.setFontSize(8);
+    doc.text('1. This is an official receipt for your payment.', 14, finalY + 20);
+    doc.text('2. Please keep this receipt for your records.', 14, finalY + 25);
+    doc.text('3. For any queries, please contact customer support.', 14, finalY + 30);
     
     // Add footer with company details
     doc.setLineWidth(0.1);
     doc.line(14, 260, 196, 260);
     
-    doc.setFontSize(8);
+    doc.setFontSize(7);
     doc.setTextColor(128, 128, 128);
     doc.text('This is a system generated receipt and does not require signature.', 105, 270, { align: 'center' });
     doc.text('© BharatConnect 2025', 105, 275, { align: 'center' });
@@ -376,7 +438,6 @@ export const generateReceiptPDF = (receiptData: ReceiptData): void => {
     doc.save(`BharatConnect_Receipt_${receiptData.transactionId || 'Payment'}.pdf`);
   } catch (error) {
     console.error('Error generating receipt PDF:', error);
-    console.log(error);
     throw error;
   }
 };
